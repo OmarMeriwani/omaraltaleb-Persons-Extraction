@@ -10,27 +10,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Barchart-Ramzi.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scrapper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="404">
-              <caret line="57" selection-start-line="57" selection-end-line="57" />
+            <state relative-caret-position="423">
+              <caret line="72" lean-forward="true" selection-end-line="72" />
               <folding>
-                <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/scrapper2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="85" column="6" selection-start-line="85" selection-start-column="6" selection-end-line="85" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Figure-1.csv">
-          <provider selected="true" editor-type-id="csv-text-editor">
-            <state>
-              <caret column="9" selection-end-column="9" />
+        <entry file="file://$USER_HOME$/Anaconda3/Lib/abc.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="141">
+              <caret line="138" selection-start-line="138" selection-end-line="138" />
             </state>
-          </provider>
-          <provider editor-type-id="csv-table-editor">
-            <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
           </provider>
         </entry>
       </file>
@@ -47,9 +56,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$USER_HOME$/Anaconda3/Lib/html/parser.py" />
-        <option value="$PROJECT_DIR$/scrapper.py" />
         <option value="$PROJECT_DIR$/Figure-1.csv" />
         <option value="$PROJECT_DIR$/Barchart-Ramzi.py" />
+        <option value="$PROJECT_DIR$/scrapper.py" />
+        <option value="$PROJECT_DIR$/scrapper2.py" />
       </list>
     </option>
   </component>
@@ -59,6 +69,7 @@
     <option name="width" value="1400" />
     <option name="height" value="830" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -90,7 +101,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Barchart-Ramzi">
+  <component name="RunManager" selected="Python.scrapper2">
     <configuration name="Barchart-Ramzi" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="omaraltaleb Persons Extraction" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -133,10 +144,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="scrapper2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="omaraltaleb Persons Extraction" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scrapper2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Barchart-Ramzi" />
+        <item itemvalue="Python.scrapper2" />
         <item itemvalue="Python.scrapper" />
+        <item itemvalue="Python.Barchart-Ramzi" />
       </list>
     </recent_temporary>
   </component>
@@ -166,7 +199,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32891247" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23607427" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39920425" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -211,20 +244,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scrapper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="39" column="1" lean-forward="true" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/pandas/core/series.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
           <caret line="3300" selection-start-line="3300" selection-end-line="3300" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Barchart-Ramzi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="50" column="19" lean-forward="true" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -238,12 +271,36 @@
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Barchart-Ramzi.py">
+    <entry file="file://$PROJECT_DIR$/scrapper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        <state relative-caret-position="423">
+          <caret line="72" lean-forward="true" selection-end-line="72" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/abc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="138" selection-start-line="138" selection-end-line="138" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/bs4/element.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="1610" column="12" lean-forward="true" selection-start-line="1610" selection-start-column="12" selection-end-line="1610" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scrapper2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="85" column="6" selection-start-line="85" selection-start-column="6" selection-end-line="85" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
