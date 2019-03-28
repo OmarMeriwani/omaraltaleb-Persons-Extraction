@@ -26,7 +26,7 @@
         <entry file="file://$PROJECT_DIR$/scrapper2.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="211">
-              <caret line="112" column="38" lean-forward="true" selection-start-line="112" selection-start-column="38" selection-end-line="115" selection-end-column="80" />
+              <caret line="112" column="38" selection-start-line="112" selection-start-column="38" selection-end-line="115" selection-end-column="80" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -37,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Processor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="371">
-              <caret line="35" column="53" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
+            <state relative-caret-position="388">
+              <caret line="233" column="29" selection-start-line="233" selection-start-column="29" selection-end-line="233" selection-end-column="29" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -50,7 +50,7 @@
         <entry file="file://$PROJECT_DIR$/POSTag.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -88,6 +88,12 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>find_all</find>
+      <find>ملا</find>
+      <find>احمد سامي</find>
+      <find>عبد  السلام</find>
+      <find>جواد سليم</find>
+      <find>بهنام عط</find>
+      <find>شاذل</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -418,7 +424,7 @@
     <entry file="file://$PROJECT_DIR$/scrapper2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
-          <caret line="112" column="38" lean-forward="true" selection-start-line="112" selection-start-column="38" selection-end-line="115" selection-end-column="80" />
+          <caret line="112" column="38" selection-start-line="112" selection-start-column="38" selection-end-line="115" selection-end-column="80" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -428,14 +434,14 @@
     <entry file="file://$PROJECT_DIR$/POSTag.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Processor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="35" column="53" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
+        <state relative-caret-position="388">
+          <caret line="233" column="29" selection-start-line="233" selection-start-column="29" selection-end-line="233" selection-end-column="29" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

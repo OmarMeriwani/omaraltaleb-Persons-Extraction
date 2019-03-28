@@ -25,16 +25,33 @@ def compareNames(name1, name2):
    Execlude the Waw
    Replace the initial Lil with Al when the letters after the word are more than 2
    '''
-    postList = ['بيك','اغا','افندي','','','','','','']
+    postList = ['سيد','اغا','ملا']
+    for p in postList:
+        if p == name1[0]:
+            name1 = name1.pop(0)
     familyRelations = ['اخ','اب']
     familyRelations2 = ['عم','خال','نسيب','ابن عم','ابن خال','صديق','زوج','اخت','زوجت','زوجة','ام']
     name1 = list(name1)
     name2 = list(name2)
+    score = 0
     if name1[0] == name2[0] and name1[len(name1)-1] == name2[len(name2)-1]:
-        return 1
+        score += 0.6
+    if name1[0] == name2[0] and name1[1] == name2[1] and score==0 and len(name1) <4:
+        score += 0.6
 
-    if name1[0] == name2[0] and name1[len(name1)-1] != name2[len(name2)-1]:
-        return 1
+    similarity = 0
+    for i in range(0,len(name1) - 1):
+        if 'عبد' == name1[i]:
+            score -= 0.2
+    for i in range(0,len(name1) - 1):
+        ff = [x for x in name2 if x == name1[i]]
+        if len(ff) > 0:
+            if ff[0] != '':
+                similarity += 1
+    similarity = similarity / len(name1)
+    score += 0.4 * similarity
+    return score
+
     #if name2 in preList:
     #    if name1[0] == name2[1] ||
 
@@ -80,11 +97,25 @@ for i in range(0,len(df)):
     tokens = [s for s in personName.split(' ') if s != '' and s != 'ت']
     NameTokens.append(tokens)
     for t in tokens:
-        NameTokens.append(t)
-NameTokens = unique(NameTokens)
+        NamesDataset.append(t.strip().replace(' ',''))
+NamesDataset = unique(NamesDataset)
+
+def findMostSimilar(name):
+    max = 0
+    articleName = ''
+    for n in NameTokens:
+        score = compareNames(str(name).split(' '), n)
+        if score > max:
+            max = score
+            articleName = n
+    if max > 0.6:
+        return ' '.join(articleName)
+    else:
+        return ''
 print(len(NameTokens))
 for i in range(0,len(df)):
     personName = str(df.loc[i].values[0])
+    personName = personName.replace('  ',' ')
     personTokens = df.loc[i].values[1]
     Numbers = df.loc[i].values[2]
     DeathYear = bool(df.loc[i].values[3])
@@ -124,7 +155,7 @@ for i in range(0,len(df)):
             try:
                 for m in range(1,7):
                     word = str(contentTokens[j+m])
-                    ff = [x for x in NameTokens if x == word]
+                    ff = [x for x in NamesDataset if x == word]
                     if len(ff) != 0:
                         if ff[0] != '':
                             second = second + ' ' + ff[0]
@@ -150,26 +181,54 @@ for i in range(0,len(df)):
         second = ''
         original = contentTokens[counter]
         toCheck = False
-        f2 = [x for x in NameTokens if x == contentTokens[counter]]
+        original = original.replace('  ',' ')
+        if original == '':
+            counter += 1
+            continue
+        if original[0] == 'و':
+            original = original[1:]
+            contentTokens[counter] = contentTokens[counter][1:]
+        f2 = [x for x in NamesDataset if x == contentTokens[counter]]
         if len(f2) != 0:
             if f2[0] != '':
                 toCheck = True
                 try:
-                    for m in range(1, 6):
+                    for m in range(1, 10):
                         word = str(contentTokens[counter + m])
-                        ff = [x for x in NameTokens if x == word]
+                        ff = [x for x in NamesDataset if x == word]
+                        AlName = False
+                        if word[:2] == 'ال' and word[len(word) - 1] == 'ي' and len(word) > 4:
+                            #print('AL-NAME',word[:2], word[len(word) - 1], len(word))
+                            AlName = True
                         if len(ff) != 0:
                             if ff[0] != '':
-                                second = second + ' ' + ff[0]
+                                second = second.strip() + ' '+ ff[0].strip()
+                            else:
+                                if AlName == True:
+                                    second = second + ' '+ word
+                                else:
+                                    break
+                        else:
+                            if AlName == True:
+                                second = second + ' '+ word
                             else:
                                 break
-                        else:
-                            break
                             # second = second + ' ' + word
                 except:
                     ss = ''
 
-                counter += 4
+                counter += 10
         if second != '':
-            print('NAMES',original, second)
+            mostsimilar = findMostSimilar(original + ' '+ second)
+            if second[0] == ' ':
+                second = second[1:]
+            if mostsimilar != original +' '+ second or mostsimilar == '':
+                if mostsimilar != '':
+                    mostsimilar = 'ARTICLE: ' + mostsimilar
+                #print('NAMES',original + ' '+ second,  mostsimilar)
         counter += 1
+    AlWords = []
+    for w in contentTokens:
+        if w[:2] == 'ال' or w[:3] ==  'وال' and len(w) > 5:
+            AlWords.append(w)
+    print(personName,AlWords)
