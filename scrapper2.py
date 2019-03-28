@@ -94,8 +94,9 @@ def ArchivePage(url1):
     headersAll = []
     paragraphs = []
     hdrs = Page1.find_all(lambda tag: tag and tag.name.startswith("h1"))
-    with open('OmarAlTalebSheet.csv', 'a') as csvFile:
+    with open('OmarAlTalebSheet.csv', 'a', encoding='utf-8') as csvFile:
         writer = csv.writer(csvFile)
+        writer.writerow(['cleanString', 'tokens', 'numbers', 'IsDeathYear', 'content', 'sentences', 'events'])
         for header in hdrs:
             print(header.next_element.name)
             foundNext = False
