@@ -10,6 +10,20 @@ import urllib.parse
 from html.parser import HTMLParser
 import csv
 from ast import literal_eval
+from nltk.tag.stanford import StanfordPOSTagger as POS_Tag
+import os
+from nltk.internals import find_jars_within_path
+from nltk.parse.stanford import StanfordDependencyParser
+from stanfordcorenlp import StanfordCoreNLP
+
+java_path = "C:/Program Files/Java/jdk1.8.0_161/bin/java.exe"
+os.environ['JAVAHOME'] = java_path
+_path_to_model = 'D:/stanford-postagger-2018-10-16/POSTagger/models/bidirectional-distsim-wsj-0-18.tagger'
+_path_to_jar = 'D:/stanford-postagger-2018-10-16/POSTagger/stanford-postagger.jar'
+host='http://localhost'
+port=9000
+scnlp =StanfordCoreNLP(host, port=port,lang='ar', timeout=30000)
+
 death = ['اعدام','قتل','شنق','','']
 preList = ['الشيخ', 'الاستاذ', 'المفتي', 'الفنان', 'الشاعر', '', 'الحاج', 'البروفيسور', 'الملا', 'البطريرك', 'القس',
            'الكاردينال', 'الملك', 'المحافظ', 'السلطان', 'الاسطة', 'الشريف', 'السيد','القاضي']
@@ -69,15 +83,10 @@ def normalize(word):
     word = word.replace('ٌ','')
     word = word.replace('ً','')
     word = word.replace('َ','')
-    word = word.replace(' ','')
     return word
 '''0, 1.cleanString, 2.tokens, 3.numbers, 4.IsDeathYear, 5.content, 6.sentences, 7.events'''
 df = pd.read_csv('OmarAlTalebSheet.csv',encoding='utf-8',header=0)
 print(df.head())
-#df['tokens'] = df['tokens'].apply(literal_eval)
-#df['numbers'] = df['numbers'].apply(literal_eval)
-#df['sentences'] = df['sentences'].apply(literal_eval)
-#df['events'] = df['events'].apply(literal_eval)
 def unique(list1):
     # intilize a null list
     unique_list = []
@@ -134,48 +143,11 @@ for i in range(0,len(df)):
     tokens = [s for s in personName.split(' ') if s != '' and s != 'ت']
     sentences = re.split(r"\.|\:|\n|\,", content)
     events = [re.split(r'([0-9]+)', s) for s in sentences if s != '']
-    contentTokens = re.split(r"\.|\:|\n|\,| |\-|\)|\(|[0-9]|\?|\/\\|\t", content)
+    #contentTokens = re.split(r"\.|\:|\n|\,| |\-|\)|\(|[0-9]|\?|\/\\|\t", content)
+    contentTokens = scnlp.word_tokenize(content)
+
     print('ARTICLE', personName)
     #print(contentTokens)
-    for j in range(0, len(contentTokens)):
-        #for k in NameTokens:
-        #print(contentTokens, k[0])
-        f = [x for x in preList if (x) == (contentTokens[j])]
-
-        toCheck = False
-        if len(f) != 0:
-            if f[0] != '':
-                toCheck = True
-
-        if toCheck:
-            #print(f)
-            #if contentTokens[j] in str(preList):
-            second = ''
-            fullSentence = ''
-            try:
-                for m in range(1,7):
-                    word = str(contentTokens[j+m])
-                    ff = [x for x in NamesDataset if x == word]
-                    if len(ff) != 0:
-                        if ff[0] != '':
-                            second = second + ' ' + ff[0]
-                        else:
-                            break
-                    else:
-                        break
-                        #second = second + ' ' + word
-            except:
-                ss = ''
-            try:
-                for m in range(1, 7):
-                    word = str(contentTokens[j + m])
-                    fullSentence = fullSentence + ' ' + word
-            except:
-                ss = ''
-            #if second != '':
-            #    print('ARTICLE',personName)
-            #    print('FULL',fullSentence)
-            #    print(contentTokens[j],second)
     counter = 0
     while counter < len(contentTokens):
         second = ''
