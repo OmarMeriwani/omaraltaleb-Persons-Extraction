@@ -37,8 +37,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Processor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="56" column="12" selection-start-line="56" selection-start-column="12" selection-end-line="56" selection-end-column="12" />
+            <state relative-caret-position="162">
+              <caret line="333" column="17" selection-start-line="333" selection-start-column="17" selection-end-line="333" selection-end-column="17" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -132,22 +132,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ت</find>
-      <find>ه</find>
-      <find>ه</find>
-      <find>الله</find>
-      <find>\xa0</find>
-      <find>\x</find>
-      <find>\X</find>
-      <find>U</find>
-      <find>عبد</find>
-      <find>الحافظ</find>
-      <find>المسيح</find>
-      <find>المطلب</find>
-      <find>المحسن</find>
-      <find>ابو</find>
-      <find>'ابو'</find>
-      <find>بن</find>
       <find>السيد</find>
       <find>الملك</find>
       <find>الحاج</find>
@@ -162,6 +146,22 @@
       <find>الفحا</find>
       <find>احمد طلب</find>
       <find>طلب</find>
+      <find>article:</find>
+      <find>احمد عزت</find>
+      <find>artıcle:</find>
+      <find>original</find>
+      <find>اثيل الجو</find>
+      <find>ادمون</find>
+      <find>سليمان فيضي</find>
+      <find>ARTICLE:</find>
+      <find>الغلامي</find>
+      <find>عبدالمنعم الغلامي</find>
+      <find>احسان</find>
+      <find>إ</find>
+      <find>عبدالواحد اسماعيل</find>
+      <find>احمد</find>
+      <find>pos_tag</find>
+      <find>NAMES</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -356,10 +356,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" />
@@ -367,7 +366,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.37267905" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.37267905" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39920425" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -407,6 +406,16 @@
           <url>file://$PROJECT_DIR$/scrapper.py</url>
           <line>25</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Processor.py</url>
+          <line>128</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Processor.py</url>
+          <line>259</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -577,8 +586,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Processor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="56" column="12" selection-start-line="56" selection-start-column="12" selection-end-line="56" selection-end-column="12" />
+        <state relative-caret-position="162">
+          <caret line="333" column="17" selection-start-line="333" selection-start-column="17" selection-end-line="333" selection-end-column="17" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

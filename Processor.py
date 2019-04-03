@@ -15,6 +15,7 @@ import os
 from nltk.internals import find_jars_within_path
 from nltk.parse.stanford import StanfordDependencyParser
 from stanfordcorenlp import StanfordCoreNLP
+from sklearn.feature_extraction.text import CountVectorizer
 
 java_path = "C:/Program Files/Java/jdk1.8.0_161/bin/java.exe"
 os.environ['JAVAHOME'] = java_path
@@ -45,20 +46,90 @@ def compareNames(name1, name2, index):
    '''
     name1 = list(name1)
     name2 = list(name2)
-
+    score = 0
     Name1Length = len(name1)
     Name2Length = len(name2)
+    Last1 = str(name1[len(name1) - 1])
+    Last2 = str(name2[len(name2) - 1])
     IsName1HasAlName = str(name1[len(name1) - 1])[:2] == 'ال'
     IsName2HasAlName = str(name2[len(name2) - 1])[:2] == 'ال'
     name1EqualsName2 = name1[0] == name2[0]
-    NotTheSame = False
+    lastsEqual = Last1 == Last2
+    first1 = name1[0]
+    first2 = name2[0]
+    firstsEqual = first1 == first2
+    TheSame = True
+    shorter = 0
+    if Name1Length > Name2Length:
+        shorter = Name2Length
+    elif Name2Length >= Name1Length:
+        shorter = Name1Length
+
     if Name1Length == Name2Length:
         for i in range(0, len(name1)):
-            
-    score = 0
+            if name1[i] != name2[i]:
+                TheSame = False
+                break
+    else:
+        TheSame = False
+    if TheSame == True:
+        return 1
+
+    if firstsEqual:
+        score += 0.3
+        if lastsEqual:
+            score += 0.25
+            #print('NAME1', name1, 'NAME2', name2)
+            if Name1Length == 2 or Name2Length == 2:
+                score += 0.1
+                return score
+        if Name1Length == 2 and Name2Length == 3:
+            if name1[1] == name2[1]:
+                score += 0.3
+        if Name1Length > 2:
+            part = []
+            part2 = []
+            if Name2Length < Name1Length:
+                part = name1[1:Name1Length-1]
+                part2 = name2[1:Name2Length - 1]
+            else:
+                part = name2[1:Name2Length-1]
+                part2 = name1[1:Name1Length - 1]
+
+            for p in part:
+                if p in part2:
+                    score += 0.15
+
+            #print('PART2',part2, 'PART1', part, 'SCORE', score)
+        #results = 'Name 1:', name1,'Name 2',name2, 'Score', score, 'Critiria',
+    return score
 
     #if name2 in preList:
     #    if name1[0] == name2[1] ||
+def findMostSimilar(name, index):
+    max = 0
+    articleName = ''
+    postList = ['سيد','السيد','الملا','الشيخ','شيخ','ملا']
+    first = name.split(' ')
+
+    if index < 15:
+        return ''
+    if (first[0] in postList):
+        first = first[1:]
+    first = [s for s in first if s != '']
+
+    if len(first) == 1:
+        return ''
+
+    for n in NameTokens:
+        score = compareNames(first, n, index)
+        if score > max:
+            max = score
+            articleName = n
+    if max >= 0.6:
+        return ' '.join(articleName)
+    else:
+        return ''
 
 def normalize(word):
     word = str(word)
@@ -93,7 +164,13 @@ def unique(list1):
             unique_list.append(x)
     return  unique_list
 def fixArabicNames (tokenss):
-    GodNames = ['الاله','المالك','الحسين','المطلب','لمحسن','المسيح','الحافظ','المحسن','الزهرة','الماجود','الله','الرحمن','الرحيم','الملك','القدوس','السلام','المؤمن','المهيمن','العزيز','الجبار','المتكبر','الخالق','البارئ','المصور','الغفار','القهار','الوهاب','الرزاق','الفتاح','العليم','القابض','الباسط','الخافض','الرافع','المعز','المذل','السميع','البصير','الحكم','العدل','اللطيف','الخبير','الحليم','العظيم','الغفور','الشكور','العلي','الكبير','الحفيظ','المقيت','الحسيب','الجليل','الكريم','الرقيب','المجيب','الواسع','الحكيم','الودود','المجيد','الباعث','الشهيد','الحق','الوكيل','القويّ','المتين','الولي','الحميد','المحصي','المبدئ','المعيد','المحيي','المميت','الحي','القيوم','الواجد','الماجد','الواحد','الصمد','القادر','المقتدر','المقدم','المؤخر','الاول','الاخر','الظاهر','الباطن','الوالي','المتعالي','البر','التواب','المنتقم','العفو','الرؤوف','المقسط','الجامع','الغني','المغني','المعطي','المانع','الضار','النافع','النور','الهادي','البديع','الباقي','الوارث','الرشيد','الصبور']
+    GodNames = ['الاله','الامير','المنعم','المالك','الحسين','المطلب','لمحسن','المسيح','الحافظ','المحسن','الزهرة','الماجود','الله','الرحمن','الرحيم','الملك','القدوس','السلام','المؤمن','المهيمن'
+        ,'العزيز','الجبار','المتكبر','الخالق','البارئ','المصور','الغفار','القهار','الوهاب','الرزاق','الفتاح','الستار',
+                'العليم','القابض','الباسط','الخافض','الرافع','المعز','المذل','السميع','البصير','الحكم','العدل','اللطيف','الخبير','الحليم','العظيم','الغفور','الشكور',
+                'العلي','الكبير','الحفيظ','المقيت','الحسيب','الجليل','الكريم','الرقيب','المجيب','الواسع','الحكيم','الودود','المجيد','الباعث','الشهيد','الحق','الوكيل',
+                'القويّ','المتين','الولي','الحميد','المحصي','المبدئ','المعيد','المحيي','المميت','الحي','القيوم','الواجد','الماجد','الواحد','الصمد','القادر','المقتدر',
+                'المقدم','المؤخر','الاول','الاخر','الظاهر','الباطن','الوالي','المتعالي','البر','التواب','المنتقم','العفو','الرؤوف','المقسط','الجامع','الغني','المغني','المعطي'
+        ,'المانع','الضار','النافع','النور','الهادي','البديع','الباقي','الوارث','الرشيد','الصبور']
     Prelist2 = ['الشيخ','الحاج', 'الملا', 'السيد']
 
     newtokens = []
@@ -144,31 +221,43 @@ for i in range(0,len(df)):
     for t in tokens:
         NamesDataset.append(normalize(t.strip().replace(' ','')))
 
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(NamesDataset)
+print(vectorizer.get_feature_names())
+print(X.toarray()[1])
+
 NamesDataset = unique(NamesDataset)
 
+def getFiveBefore(contentTokens, index):
+    if index < 4:
+        return ''
+    wordsbefore = ''
+    for i in range(1,6):
+        try:
+            if contentTokens[index - i] == '.':
+                wordsbefore = ''
+                continue
+            wordsbefore = contentTokens[index - i] + ' '+  wordsbefore
+        except:
+            continue
+    return wordsbefore
 
-def findMostSimilar(name, index):
-    max = 0
-    articleName = ''
-    postList = ['سيد','السيد','الملا','ملا']
-    first = name.split(' ')
-    if index < 15:
-        return ''
-    if (first[0] in postList):
-        first = first[1:]
-    for n in NameTokens:
-        score = compareNames(first, n, index)
-        if score > max:
-            max = score
-            articleName = n
-    if max > 0.6:
-        return ' '.join(articleName)
-    else:
-        return ''
+
+def getFiveAfter(contentTokens, index):
+    wordsAfter = ''
+    for i in range(4,10):
+        try:
+            wordsAfter = wordsAfter +' '+ contentTokens[index + i]
+        except:
+            continue
+    return wordsAfter
 print(len(NameTokens))
 for i in range(0,len(df)):
     personName = str(df.loc[i].values[0])
     personName = personName.replace('  ',' ')
+    ss = ''
+    if personName == 'عبد المنعم الغلامي':
+        ss = personName
     personTokens = df.loc[i].values[1]
     Numbers = df.loc[i].values[2]
     DeathYear = bool(df.loc[i].values[3])
@@ -195,7 +284,10 @@ for i in range(0,len(df)):
     #print('TEXT', contentTokens)
     #print(contentTokens)
     counter = 0
+
     while counter < len(contentTokens):
+        fiveBefore = ''
+        fiveAfter = ''
         second = ''
         original = contentTokens[counter]
         toCheck = False
@@ -205,8 +297,11 @@ for i in range(0,len(df)):
         if len([s for s in NamesDataset if s == original]) >= 1:
             toCheck = True
             try:
+                fiveBefore = getFiveBefore(contentTokens, counter)
+
                 for m in range(1, 5):
                     word = str(contentTokens[counter + m])
+                    word = normalize(word)
                     ff = [x for x in NamesDataset if x == word]
                     AlName = False
                     if word[:2] == 'ال' and word[len(word) - 1] == 'ي' and len(word) > 4:
@@ -222,16 +317,21 @@ for i in range(0,len(df)):
                         # second = second + ' ' + word
             except:
                 ss = ''
+            fiveAftere = getFiveAfter(contentTokens, counter)
 
-            counter += 10
-        if second != '':
-            mostsimilar = findMostSimilar(original + ' '+ second, index=counter)
+            counter += 5
+        if second.strip() != '':
             if second[0] == ' ':
                 second = second[1:]
-            if mostsimilar != original +' '+ second or mostsimilar == '':
-                if mostsimilar != '':
-                    mostsimilar = 'ARTICLE: ' + mostsimilar
-                print('NAMES',original + ' '+ second,  mostsimilar, counter)
+            newname = original + ' '+ second
+            mostsimilar = findMostSimilar(newname, index=counter)
+            if  mostsimilar != '':
+                mostsimilar = 'ARTICLE: ' + mostsimilar
+            IsItTheSameArticleOwnerName = compareNames(newname.split(' '), tokens,30)
+            if IsItTheSameArticleOwnerName < 0.5:
+                print('BEFORE', fiveBefore)
+                print('NAMES',newname,  mostsimilar)
+                #print('AFTER', fiveAftere)
         counter += 1
     AlWords = []
     '''for w in contentTokens:
