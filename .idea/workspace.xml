@@ -25,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Processor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="280" column="113" selection-start-line="280" selection-start-column="113" selection-end-line="280" selection-end-column="113" />
+            <state relative-caret-position="17">
+              <caret line="276" selection-start-line="276" selection-end-line="293" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
                 <element signature="e#4165#4697#0" />
@@ -291,7 +291,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3275862" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.47612733" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39920425" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -494,8 +494,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Processor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="280" column="113" selection-start-line="280" selection-start-column="113" selection-end-line="280" selection-end-column="113" />
+        <state relative-caret-position="17">
+          <caret line="276" selection-start-line="276" selection-end-line="293" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#4165#4697#0" />
