@@ -31,6 +31,19 @@ preList = ['الشيخ', 'الاستاذ', 'المفتي', 'الفنان', 'ال
            'الكاردينال', 'الملك', 'المحافظ', 'السلطان', 'الاسطة', 'الشريف', 'السيد','القاضي','المرحوم']
 familyRelations = ['اخ', 'اب']
 familyRelations2 = ['عم', 'خال', 'نسيب', 'ابن عم', 'ابن خال', 'صديق', 'زوج', 'اخت', 'زوجت', 'زوجة', 'ام']
+GodNames = ['الاله', 'الامير', 'المنعم', 'المالك', 'الحسين', 'المطلب', 'لمحسن', 'المسيح', 'الحافظ', 'المحسن', 'الزهرة',
+            'الماجود', 'الله', 'الرحمن', 'الرحيم', 'الملك', 'القدوس', 'السلام', 'المؤمن', 'المهيمن'
+    , 'العزيز', 'الجبار', 'المتكبر', 'الخالق', 'البارئ', 'المصور', 'الغفار', 'القهار', 'الوهاب', 'الرزاق', 'الفتاح',
+            'الستار', 'المقصود',
+            'العليم', 'القابض', 'الباسط', 'الخافض', 'الرافع', 'المعز', 'المذل', 'السميع', 'البصير', 'الحكم', 'العدل',
+            'اللطيف', 'الخبير', 'الحليم', 'العظيم', 'الغفور', 'الشكور',
+            'العلي', 'الكبير', 'الحفيظ', 'المقيت', 'الحسيب', 'الجليل', 'الكريم', 'الرقيب', 'المجيب', 'الواسع', 'الحكيم',
+            'الودود', 'المجيد', 'الباعث', 'الشهيد', 'الحق', 'الوكيل',
+            'القويّ', 'المتين', 'الولي', 'الحميد', 'المحصي', 'المبدئ', 'المعيد', 'المحيي', 'المميت', 'الحي', 'القيوم',
+            'الواجد', 'الماجد', 'الواحد', 'الصمد', 'القادر', 'المقتدر',
+            'المقدم', 'المؤخر', 'الاول', 'الاخر', 'الظاهر', 'الباطن', 'الوالي', 'المتعالي', 'البر', 'التواب', 'المنتقم',
+            'العفو', 'الرؤوف', 'المقسط', 'الجامع', 'الغني', 'المغني', 'المعطي'
+    , 'المانع', 'الضار', 'النافع', 'النور', 'الهادي', 'البديع', 'الباقي', 'الوارث', 'الرشيد', 'الصبور']
 
 
 def compareNames(name1, name2, index):
@@ -100,13 +113,13 @@ def compareNames(name1, name2, index):
             for p in part:
                 if p in part2:
                     score += 0.15
-
-            #print('PART2',part2, 'PART1', part, 'SCORE', score)
-        #results = 'Name 1:', name1,'Name 2',name2, 'Score', score, 'Critiria',
     return score
 
-    #if name2 in preList:
-    #    if name1[0] == name2[1] ||
+
+'''This method gives numerical similarity scores from 0 to 1, the score 1 means that the two names are totally the same
+It compares specific word with all the names in the encyclopedia
+ But in the beginning, it checks a set of titles that gets confused with person names such as (Shiekh, Mulla..etc), if the 
+ title existed then it would be removed from the name. After that, the method relies on the previos method of compareNames which gives the scores'''
 def findMostSimilar(name, index, personNametokens):
     max = 0
     articleName = ''
@@ -128,11 +141,10 @@ def findMostSimilar(name, index, personNametokens):
             max = score
             articleName = n
     if max >= 0.6:
-        #print('SIMILARITY CHECK:', name, '=|||=', ' '.join(articleName))
         return ' '.join(articleName)
     else:
         return ''
-
+#This method normalizes headline titles in the Encyclopedia, which contains specific unwanted letters such as (ت) which refers to the death year of the person
 def normalize(word):
     word = str(word)
     word = word.replace('أ','ا')
@@ -152,6 +164,7 @@ def normalize(word):
     if word == 'ه':
         word = word.replace('ه','')
     return word
+#This method normalizes normal words in the text of the encyclopedia.
 def normalize2(word):
     word = str(word)
     word = word.replace('أ','ا')
@@ -167,9 +180,7 @@ def normalize2(word):
     word = word.replace('ً','')
     word = word.replace('َ','')
     return word
-'''0, 1.cleanString, 2.tokens, 3.numbers, 4.IsDeathYear, 5.content, 6.sentences, 7.events'''
-df = pd.read_csv('OmarAlTalebSheet.csv',encoding='utf-8',header=0)
-print(df.head())
+#This method is used to create
 def unique(list1):
     # intilize a null list
     unique_list = []
@@ -179,14 +190,11 @@ def unique(list1):
         if x not in unique_list:
             unique_list.append(x)
     return  unique_list
+
+'''
+Remove spaces from the names that consists of two words which are mainly the names with (دين) or the names that indicates worshiping (عبد) which mean slave of X where X is one of the names of God, Juesus or Muslim holy figures 
+'''
 def fixArabicNames (tokenss, isText):
-    GodNames = ['الاله','الامير','المنعم','المالك','الحسين','المطلب','لمحسن','المسيح','الحافظ','المحسن','الزهرة','الماجود','الله','الرحمن','الرحيم','الملك','القدوس','السلام','المؤمن','المهيمن'
-        ,'العزيز','الجبار','المتكبر','الخالق','البارئ','المصور','الغفار','القهار','الوهاب','الرزاق','الفتاح','الستار','المقصود',
-                'العليم','القابض','الباسط','الخافض','الرافع','المعز','المذل','السميع','البصير','الحكم','العدل','اللطيف','الخبير','الحليم','العظيم','الغفور','الشكور',
-                'العلي','الكبير','الحفيظ','المقيت','الحسيب','الجليل','الكريم','الرقيب','المجيب','الواسع','الحكيم','الودود','المجيد','الباعث','الشهيد','الحق','الوكيل',
-                'القويّ','المتين','الولي','الحميد','المحصي','المبدئ','المعيد','المحيي','المميت','الحي','القيوم','الواجد','الماجد','الواحد','الصمد','القادر','المقتدر',
-                'المقدم','المؤخر','الاول','الاخر','الظاهر','الباطن','الوالي','المتعالي','البر','التواب','المنتقم','العفو','الرؤوف','المقسط','الجامع','الغني','المغني','المعطي'
-        ,'المانع','الضار','النافع','النور','الهادي','البديع','الباقي','الوارث','الرشيد','الصبور']
     Prelist2 = ['الشيخ','الحاج', 'الملا', 'السيد']
 
     newtokens = []
@@ -234,46 +242,7 @@ def fixArabicNames (tokenss, isText):
     return newtokens
 
 
-NameTokens = []
-NamesDataset = []
-for i in range(0,len(df)):
-    personName = str(df.loc[i].values[0])
-    tokens = [s for s in personName.split(' ') if s != '' and s != 'ت']
-    #print('ORIGINALNAMES',tokens)
-    tokens = fixArabicNames(tokens,False)
-    #print('FIXEDNAMES', tokens)
-    NameTokens.append(tokens)
-    for t in tokens:
-        NamesDataset.append(normalize(t.strip().replace(' ','')))
-NamesDataset.append('ابن')
-NamesDataset.append('بن')
-
-vectorizer = CountVectorizer()
-X = vectorizer.fit_transform(NamesDataset)
-print(vectorizer.get_feature_names())
-print(X.toarray()[1])
-def addGodNames():
-    GodNames = ['الاله', 'الامير', 'المنعم', 'المالك', 'الحسين', 'المطلب', 'لمحسن', 'المسيح', 'الحافظ', 'المحسن',
-                'الزهرة', 'الماجود', 'الله', 'الرحمن', 'الرحيم', 'الملك', 'القدوس', 'السلام', 'المؤمن', 'المهيمن'
-        , 'العزيز', 'الجبار', 'المتكبر', 'الخالق', 'البارئ', 'المصور', 'الغفار', 'القهار', 'الوهاب', 'الرزاق', 'الفتاح',
-                'الستار', 'المقصود',
-                'العليم', 'القابض', 'الباسط', 'الخافض', 'الرافع', 'المعز', 'المذل', 'السميع', 'البصير', 'الحكم',
-                'العدل', 'اللطيف', 'الخبير', 'الحليم', 'العظيم', 'الغفور', 'الشكور',
-                'العلي', 'الكبير', 'الحفيظ', 'المقيت', 'الحسيب', 'الجليل', 'الكريم', 'الرقيب', 'المجيب', 'الواسع',
-                'الحكيم', 'الودود', 'المجيد', 'الباعث', 'الشهيد', 'الحق', 'الوكيل',
-                'القويّ', 'المتين', 'الولي', 'الحميد', 'المحصي', 'المبدئ', 'المعيد', 'المحيي', 'المميت', 'الحي',
-                'القيوم', 'الواجد', 'الماجد', 'الواحد', 'الصمد', 'القادر', 'المقتدر',
-                'المقدم', 'المؤخر', 'الاول', 'الاخر', 'الظاهر', 'الباطن', 'الوالي', 'المتعالي', 'البر', 'التواب',
-                'المنتقم', 'العفو', 'الرؤوف', 'المقسط', 'الجامع', 'الغني', 'المغني', 'المعطي'
-        , 'المانع', 'الضار', 'النافع', 'النور', 'الهادي', 'البديع', 'الباقي', 'الوارث', 'الرشيد', 'الصبور']
-    for i in GodNames:
-        NamesDataset.append('عبد' + i)
-frequencies = {}
-for n in NamesDataset:
-    frequencies[n] =  NamesDataset.count(n)/len(NamesDataset)
-
-NamesDataset = unique(NamesDataset)
-
+'''Relations terms'''
 familyRelations3 = ['اب','ابو', 'ام', 'اخ','اخوت','الاخ','اخو','ابا','اخا', 'اخت', 'عم', 'خال', 'خال', 'خالة','خالت', 'جد','جدة','جدت','حفيد','حفيدة','حفيدت','نسيب','نسيبة','نسيبت','حما','حمو','والد','والدة','والدت','زوج','زوجة','زوجت','كنت','شقيق','شقيقة','شقيقت','ابن','ابنة','ابنت','قرابة','زواج','ابناء','أولاد','اخوة','عمومة']
 familyRelations4 = ['زوجة اب','زوجت اب','زوج ام','ابن خال','ابن خالة','ابن خالت','ابن عم','ابن عمة','ابن عمت','ابن اخي','ابن اخو','بنت اخي','بنت اخو','بنت اخت','ابن اخت']
 friendship = ['حليف','حليفت','صداقت','صاحبت','رفيقة','زميل','زميلة','صداقة','حلف','صحبة','رفقة','زمالة','علاقة']
@@ -298,7 +267,12 @@ competition = ['منافسه','نافس']
 relations = []
 relations2 = []
 
+'''
+Setting the priorities, relation classes, number of words for each relation, Is it require object pronoun after it?
+Then combine them all into one array
+'''
 def combineRelations():
+    '''[Word, Class, Number of Words, Is it require object pronoun after it]'''
     for i in familyRelations3:
         relations.append([i,'FAMILY',1,False])
     for i in familyRelations4:
@@ -339,17 +313,22 @@ def combineRelations():
 
 combineRelations()
 ObjectPronouns = ['ه','ي','هم']
+'''
+According to the words before the name, find the relations based on:
+* The complete match between one of the relations and one of the words before the name
+'''
 def getRelation(wordsbefore, index):
     if index < 4:
         return ''
     relation = ''
-    array = wordsbefore.split(' ')
     relationsset = []
+    #The complete match between one of the relations and one of the words before for two-word relations
     for i in [f for f in relations2 if f[2] == 2]:
         rel = i[0]
         place = wordsbefore.find(rel)
         if place != -1:
             relationsset.append([i,place])
+    #Match between one of the words that require object pronoun that is followed by an object pronoun
     for i in [f for f in relations2 if f[3] == True]:
         try:
             rel = i[0]
@@ -359,6 +338,7 @@ def getRelation(wordsbefore, index):
                 relationsset.append([i,place])
         except Exception as e:
             continue
+    #The occurence of one word relation that doesn't require object pronoun
     for i in [f for f in relations2 if f[3] == False and f[2] == 1]:
         rel = i[0]
         wordsbeforeArray = wordsbefore.split(' ')
@@ -371,19 +351,28 @@ def getRelation(wordsbefore, index):
         if place != -1:
             relationsset.append([i,place])
     minn = 0
+    #For each relation from the above, the place and the word were stored, then in the following step, only the nearest to the name will be considered
     for i in relationsset:
         rela = i[0]
         place = i[1]
         type = rela[1]
         count = i[2]
-        if count == 2:
-            relation = type + ':' + rel
-            break
+        #if count == 2:
+        #    relation = type + ':' + rel
+        #    break
         rel = rela[0]
         if place > minn:
             relation = type + ':' + rel
     return relation
 
+'''
+Create a list of worship-indicating names by using the list of god names
+'''
+def addGodNames():
+    for i in GodNames:
+        NamesDataset.append('عبد' + i)
+
+#A method to get five words before any detected name
 def getFiveBefore(contentTokens, index):
     if index < 4:
         return ''
@@ -397,6 +386,8 @@ def getFiveBefore(contentTokens, index):
         except:
             continue
     return wordsbefore
+
+#A method that returns a number of words after the detected name
 def getFiveAfter(contentTokens, index):
     wordsAfter = ''
     for i in range(0,14):
@@ -405,18 +396,55 @@ def getFiveAfter(contentTokens, index):
         except:
             continue
     return wordsAfter
+
+'''======================================= PARSING PROCESS ========================================='''
+'''0, 1.cleanString, 2.tokens, 3.numbers, 4.IsDeathYear, 5.content, 6.sentences, 7.events'''
+df = pd.read_csv('OmarAlTalebSheet.csv',encoding='utf-8',header=0)
+print(df.head())
+
+
+
+'''
+Tokenize names, fix the names with spaces, remove unwanted single characters, and add them into a list
+'''
+NameTokens = []
+NamesDataset = []
+for i in range(0,len(df)):
+    personName = str(df.loc[i].values[0])
+    tokens = [s for s in personName.split(' ') if s != '' and s != 'ت']
+    tokens = fixArabicNames(tokens,False)
+    NameTokens.append(tokens)
+    for t in tokens:
+        NamesDataset.append(normalize(t.strip().replace(' ','')))
+
+'''Add the [son of] to the list of the names to insure bringing old writing style names'''
+NamesDataset.append('ابن')
+NamesDataset.append('بن')
+
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(NamesDataset)
+print(vectorizer.get_feature_names())
+
+
+frequencies = {}
+for n in NamesDataset:
+    frequencies[n] =  NamesDataset.count(n)/len(NamesDataset)
+
+NamesDataset = unique(NamesDataset)
 print(len(NameTokens))
 for i in range(0,len(df)):
 #for i in range(0, 5):
+    #Get values from the CSV
     personName = str(df.loc[i].values[0])
     personName = personName.replace('  ',' ')
-
     personTokens = df.loc[i].values[1]
     Numbers = df.loc[i].values[2]
     DeathYear = bool(df.loc[i].values[3])
     content = str(df.loc[i].values[4])
     sents = df.loc[i].values[5]
     events = df.loc[i].values[6]
+
+    #Get and correct the numbers
     Numbers = str(Numbers)
     Numbers = Numbers.replace('[','')
     Numbers = Numbers.replace(']','')
@@ -426,36 +454,43 @@ for i in range(0,len(df)):
         Numbers = [int(n) for n in Numbers]
     except:
         Numbers = []
+
+    #Tokenize person name
     tokens = [s for s in personName.split(' ') if s != '' and s != 'ت']
+    #Sentences splitting
     sentences = re.split(r"\.|\:|\n|\,", content)
+    #Get numbers of years from setnences
     events = [re.split(r'([0-9]+)', s) for s in sentences if s != '']
     #contentTokens = re.split(r"\.|\:|\n|\,| |\-|\)|\(|[0-9]|\?|\/\\|\t", content)
 
+    #Tokenize the content of each author
     contentTokens = scnlp.word_tokenize(content)
+    #Normalize person name and fix Arabic names
     personName = ' '.join(fixArabicNames([normalize(p) for p in personName.split(' ')],False))
+    #Apply the fix process on the content
     contentTokens = fixArabicNames(contentTokens,True)
-    #print('ARTICLE', personName)
-    #print('TEXT', contentTokens)
-    #print(contentTokens)
     counter = 0
 
+    #For each token in each content text of the authors
     while counter < len(contentTokens):
         fiveBefore = ''
         fiveAfter = ''
         relationss = ''
         second = ''
         original = contentTokens[counter]
-        #print('WORD#'+ str(counter),':', original)
+
+        #This flag is used to execlude some cases from checking ******************
         toCheck = False
         if original == '':
             counter += 1
             continue
+        #If the token was a title (Mrs, Priest, Shiekh..etc) then skip it
         if original in preList:
             original = contentTokens[counter + 1]
             counter += 1
             toCheck = True
+        #If the token was available in the names dataset
         if len([s for s in NamesDataset if s == original]) >= 1 or toCheck == True:
-            toCheck = True
             step = ''
             try:
                 step = 'Get five words before'
