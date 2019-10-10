@@ -13,10 +13,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Processor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="481" column="82" selection-start-line="481" selection-start-column="82" selection-end-line="481" selection-end-column="82" />
+            <state relative-caret-position="209">
+              <caret line="96" column="39" selection-start-line="96" selection-start-column="39" selection-end-line="96" selection-end-column="39" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#12821#12936#0" />
+                <element signature="e#12999#13305#0" />
+                <element signature="e#13383#13673#0" />
               </folding>
             </state>
           </provider>
@@ -33,17 +36,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>عبدالمنعم الغلامي</find>
-      <find>احسان</find>
-      <find>إ</find>
-      <find>عبدالواحد اسماعيل</find>
-      <find>احمد</find>
-      <find>pos_tag</find>
-      <find>NAMES</find>
-      <find>_path_to_model</find>
-      <find>_path_to_jar</find>
-      <find>scnlp</find>
-      <find>يوسف الصائغ</find>
       <find>والد</find>
       <find>يوئيل يوسف عزيز اليعقوبي</find>
       <find>norm</find>
@@ -63,6 +55,17 @@
       <find>numbers</find>
       <find>csv</find>
       <find>postList</find>
+      <find>RELATION:</find>
+      <find>سعدالدين زياد</find>
+      <find>عطار باشي</find>
+      <find>توسط</find>
+      <find>الديوه جي</find>
+      <find>0.4</find>
+      <find>pd.</find>
+      <find>0.000</find>
+      <find>sorted</find>
+      <find>بن</find>
+      <find>frequency</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -273,7 +276,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27188328" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.301061" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39920425" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -397,21 +400,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OmarAlTalebSheet.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="142">
-          <caret line="888" column="2483" selection-start-line="888" selection-start-column="2473" selection-end-line="888" selection-end-column="2483" />
-        </state>
-      </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
-      </provider>
-      <provider editor-type-id="LargeFileEditor">
-        <state>
-          <caret column="63" selection-start-column="63" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/Lib/abc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
@@ -474,12 +462,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/testcases2.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+      <provider selected="true" editor-type-id="csv-text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testcases.csv">
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+      <provider selected="true" editor-type-id="csv-text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OmarAlTalebSheet.csv">
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="142">
+          <caret line="888" column="2483" selection-start-line="888" selection-start-column="2473" selection-end-line="888" selection-end-column="2483" />
+        </state>
+      </provider>
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+      <provider editor-type-id="LargeFileEditor">
+        <state>
+          <caret column="63" selection-start-column="63" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Processor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="481" column="82" selection-start-line="481" selection-start-column="82" selection-end-line="481" selection-end-column="82" />
+        <state relative-caret-position="209">
+          <caret line="96" column="39" selection-start-line="96" selection-start-column="39" selection-end-line="96" selection-end-column="39" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#12821#12936#0" />
+            <element signature="e#12999#13305#0" />
+            <element signature="e#13383#13673#0" />
           </folding>
         </state>
       </provider>
