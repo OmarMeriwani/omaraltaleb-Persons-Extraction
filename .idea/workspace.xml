@@ -14,7 +14,11 @@
         <entry file="file://$PROJECT_DIR$/Processor.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
+<<<<<<< HEAD
               <caret line="93" column="20" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
+=======
+              <caret line="93" column="20" lean-forward="true" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
+>>>>>>> 328d260d58d566de7b86f006b8aa3e4e7d5f1f42
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -271,7 +275,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+=======
+    <frame x="-8" y="-8" width="1616" height="886" extended-state="6" />
+>>>>>>> 328d260d58d566de7b86f006b8aa3e4e7d5f1f42
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30228138" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -419,7 +427,11 @@
     <entry file="file://$PROJECT_DIR$/Processor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
+<<<<<<< HEAD
           <caret line="93" column="20" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
+=======
+          <caret line="93" column="20" lean-forward="true" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
+>>>>>>> 328d260d58d566de7b86f006b8aa3e4e7d5f1f42
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
