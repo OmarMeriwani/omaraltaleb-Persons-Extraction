@@ -1,5 +1,5 @@
 import pandas as pd
-
+from NameFunctions import normalize2
 df = pd.read_csv('OmarAlTalebSheet.csv',encoding='utf-8',header=0)
 print(df.head())
 NamesAndContentList = []
