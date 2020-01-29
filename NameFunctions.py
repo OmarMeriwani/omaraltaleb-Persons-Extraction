@@ -1,4 +1,5 @@
-
+from sklearn.feature_extraction.text import CountVectorizer
+from operator import itemgetter
 def compareNames(name1, name2, index, NameFrequencies):
     '''
     If both names were the same length
@@ -205,7 +206,50 @@ def fixArabicNames (tokenss, isText):
         newtokens2.append(newtokens[i])'''
     return newtokens
 
+def fixname (name):
+    personName = str(name)
+    personName = personName.replace('  ',' ')
+    tokens = [s for s in personName.split(' ') if s != '' and s != 'ت']
+    tokens = fixArabicNames(tokens, False)
+    return ' '.join(tokens)
 
+def getNameFrequencies(df):
+    NameTokens = []
+    NamesDataset = []
+    for i in range(0, len(df)):
+        personName = str(df.loc[i].values[0])
+        tokens = [s for s in personName.split(' ') if s != '' and s != 'ت']
+        tokens = fixArabicNames(tokens, False)
+        NameTokens.append(tokens)
+        for t in tokens:
+            NamesDataset.append(normalize(t.strip().replace(' ', '')))
+
+    '''Add the [son of] to the list of the names to insure bringing old writing style names'''
+    NamesDataset.append('ابن')
+    NamesDataset.append('بن')
+
+    vectorizer = CountVectorizer()
+    X = vectorizer.fit_transform(NamesDataset)
+    print(vectorizer.get_feature_names())
+    NameFrequencies = [(n / len(vectorizer.get_feature_names())) for n in X.toarray().sum(axis=0)]
+    NameFrequencies2 = []
+    for i in range(0, len(vectorizer.get_feature_names())):
+        NameFrequencies2.append([vectorizer.get_feature_names()[i], round(NameFrequencies[i], 5)])
+    NameFrequencies2 = NameFrequencies2[1:]
+    NameFrequencies2 = sorted(NameFrequencies2, key=itemgetter(1))
+    NameFrequencies = []
+    for i in range(0, len(NameFrequencies2), 100):
+        for j in range(i, i + 100):
+            try:
+                NameFrequencies.append([NameFrequencies2[j][0], i / 100])
+            except:
+                break
+    print(NameFrequencies)
+
+    frequencies = {}
+    for n in NamesDataset:
+        frequencies[n] = NamesDataset.count(n) / len(NamesDataset)
+    return NameFrequencies
 
 '''Relations terms'''
 familyRelations3 = ['اب','ابو', 'ام', 'اخ','اخوت','الاخ','اخو','ابا','اخا', 'اخت', 'عم', 'خال', 'خال', 'خالة','خالت', 'جد','جدة','جدت','حفيد','حفيدة','حفيدت','نسيب','نسيبة','نسيبت','حما','حمو','والد','والدة','والدت','زوج','زوجة','زوجت','كنت','شقيق','شقيقة','شقيقت','ابن','ابنة','ابنت','قرابة','زواج','ابناء','أولاد','اخوة','عمومة']
