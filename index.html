@@ -102,6 +102,9 @@ var graph = JSON.parse(text);
 
 // Load the graph in sigma
 s.graph.read(graph);
+s.bind('overNode outNode clickNode doubleClickNode rightClickNode', function(e) {
+console.log(e.type, e.data.node.label, e.data.captor);
+});
 // Ask sigma to draw it
 s.refresh();
 });

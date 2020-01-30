@@ -129,7 +129,7 @@ for i in range(0,len(df)):
 
     else:
         yearsDict[NodeX] = yearsDict[NodeX] + 1
-        yCounter += 50
+        yCounter += 5
         NodeY = yCounter
     '''
     if i % 2 == 0:
@@ -261,6 +261,7 @@ for node in nodes:
             edge = {
                 "id": edgeId,
                 "source": seq1,
+                "size": 3,
                 "target": s[0]
             }
             edgeId += 1
@@ -281,6 +282,7 @@ for node in nodes:
             edge = {
                 "id": edgeId,
                 "source": seq1,
+                "size": 3,
                 "target": s[0]
             }
             edgeId += 1
