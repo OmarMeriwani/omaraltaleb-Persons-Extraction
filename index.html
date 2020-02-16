@@ -22,6 +22,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sigma@1.2.1/src/captors/sigma.captors.touch.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sigma@1.2.1/src/renderers/sigma.renderers.canvas.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sigma@1.2.1/src/renderers/sigma.renderers.webgl.js"></script>
+    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/settings.js"></script>
+    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sigma@1.2.1/src/renderers/sigma.renderers.svg.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sigma@1.2.1/src/renderers/sigma.renderers.def.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sigma@1.2.1/src/renderers/canvas/sigma.canvas.labels.def.js"></script>
@@ -42,12 +46,14 @@
     <script src="https://cdn.jsdelivr.net/npm/sigma@1.2.1/src/misc/sigma.misc.bindEvents.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sigma@1.2.1/src/misc/sigma.misc.bindDOMEvents.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sigma@1.2.1/src/misc/sigma.misc.drawHovers.js"></script>
+
+
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
   </head>
   <body>
 
-    <div id='sigma-container'></div>
+    <div oncontextmenu="rightClickk()" id='sigma-container'></div>
     <script>
       function readTextFile(file, callback) {
         var rawFile = new XMLHttpRequest();
@@ -60,9 +66,42 @@
         }
         rawFile.send(null);
       }
+    
+function rightClickk(){
+  s.graph.clear();
+  //JSON.parse(graph).filter(d => d.data.node.id == nodeId);
+  s.graph.read(graph);  
+  s.refresh();
+}
 
+function containsObject(obj, list) 
+{
+  var i;
+  for (i = 0; i < list.length; i++) {
+    if (list[i] === obj) {
+        return true;
+    }
+  }
 
+  return false;
+}
+
+  sigma.classes.graph.addMethod('adjacentEdges', function(id) {
+  if (typeof id !== 'string')
+    throw 'adjacentEdges: the node id must be a string.';
+  var a = this.allNeighborsIndex[id],
+      eid,
+      target,
+      edges = [];
+  for(target in a) {
+    for(eid in a[target]) {
+      edges.push(a[target][eid]);
+    }
+  }
+  return edges;
+});
       // Initialise sigma:
+var graph = null;
 var s = new sigma(
   {
     renderer: {
@@ -71,43 +110,117 @@ var s = new sigma(
     },
     settings: {
      minEdgeSize: 0.1,
-     maxEdgeSize: 2,
+     //maxEdgeSize: 2,
      minNodeSize: 1,
-     maxNodeSize: 20,
+     //maxNodeSize: 20,
     }
   }
 );
-sigma.classes.graph.addMethod('adjacentEdges', function(id) {
-      if (typeof id !== 'string')
-        throw 'adjacentEdges: the node id must be a string.';
 
-      var a = this.allNeighborsIndex[id],
-          eid,
-          target,
-          edges = [];
-      for(target in a) {
-        for(eid in a[target]) {
-          edges.push(a[target][eid]);
-        }
-      }
-      return edges;
-    });
+var nodeColor = '';
+function refresh_graph() {
+  $('#graph').remove(); 
+  $('#sigma-container').html('<div id="sigma-container"></div>'); 
 
+}
 
 //var graph = {}
 readTextFile("http://127.0.0.1:8887/finalrelations.json", function(text){
-var graph = JSON.parse(text);
-
-// Create a graph object
-
-// Load the graph in sigma
+graph = JSON.parse(text);
 s.graph.read(graph);
-s.bind('overNode outNode clickNode doubleClickNode rightClickNode', function(e) {
-console.log(e.type, e.data.node.label, e.data.captor);
-});
 // Ask sigma to draw it
 s.refresh();
 });
+// Create a graph object
+
+// Load the graph in sigma
+
+//overNode outNode clickNode rightClickNode doubleClickNode
+s.bind('overNode',
+function(e)
+{
+  if (e.data.node.color != '#111111'){
+  nodeColor = e.data.node.color;
+  }
+  //console.log('overNode',nodeColor);
+  e.data.node.color = "#111111"
+  var nodeId = e.data.node.id;
+  
+  s.graph.adjacentEdges(nodeId).forEach(
+    function (ee) {
+      //console.log(ee);
+      ee.color = '#111111';
+    }
+  );
+s.refresh();
+});
+
+s.bind('outNode',
+function(e)
+{
+  //nodeColor = e.data.node.color;
+  e.data.node.color = nodeColor
+  var nodeId = e.data.node.id;
+  
+  s.graph.adjacentEdges(nodeId).forEach(
+    function (ee) {
+      //console.log(ee);
+      ee.color = nodeColor;
+    }
+  );
+s.refresh();
+});
+
+s.bind('doubleClickNode',
+function(e)
+{
+  var nodeId = e.data.node.id;
+  //console.log(graph);
+  var graph2 = [];
+  var counter = 0;
+  var edges = [];
+  var allEdges = [];
+  for (var key of Object.keys(graph.edges)) {
+    if ( graph.edges[key].target == nodeId || graph.edges[key].source == nodeId ){
+      if (containsObject( graph.edges[key].source, edges) == false){
+        edges.push(graph.edges[key].source);
+      }
+      if (containsObject( graph.edges[key].target, edges) == false){
+        edges.push(graph.edges[key].target);
+      }
+      allEdges.push(graph.edges[key]);
+    }
+    counter ++;
+  }
+  //console.log(edges);
+  counter = 0;
+  for (var key of Object.keys(graph.nodes)) {
+    for (var i = 0; i < edges.length; i++)
+    {
+        if (edges[i] == graph.nodes[key].id )
+        {
+          graph2.push(graph.nodes[key]);
+          counter++;
+        }
+    }
+    //if (containsObject(graph.nodes[key].id, edges))
+    //{
+    //  graph2[counter] = graph.nodes[key];
+    // counter ++;
+    //}
+  }
+  myJson = {nodes: {}, edges: {}};
+  myJson.nodes = graph2;
+  myJson.edges = allEdges;
+  console.log(myJson);
+  s.graph.clear();
+  s.refresh();
+  //JSON.parse(graph).filter(d => d.data.node.id == nodeId);
+  s.graph.read(myJson);  
+  s.refresh();
+});
+
+
   </script>
   </body>
 </html>

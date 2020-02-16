@@ -60,13 +60,13 @@ def findLargestValIndex(listA):
 stemmed = []
 nonstemmed = []
 classes = []
-sequences = []
-for i in range(0, len(df.values)):
-    sequences.append(df.loc[i].values[0])
+#sequences = []
+statisticalFeatures = []
+#for i in range(0, len(df.values)):
+#    sequences.append(df.loc[i].values[0])
 def preprocess(df, istraining):
     for i in range(0,len(df.values)):
         seq = str(df.loc[i].values[0])
-        personName = str(df.loc[i].values[1])
         content = str(df.loc[i].values[2])
         if istraining == True:
             class1 = str(df.loc[i].values[5])
@@ -74,7 +74,6 @@ def preprocess(df, istraining):
             religion = int(df.loc[i].values[5])
             military = int(df.loc[i].values[6])
         #print (seq,personName)
-
         s = re.sub("\d", " ", content)
         s = s.translate(str.maketrans('', '', string.punctuation))
         tokens = scnlp.pos_tag(s)
@@ -83,6 +82,7 @@ def preprocess(df, istraining):
         tokens = [t for t in tokens if t not in stopwords]
         #print(' '.join( tokens))
         nonstemmed.append( ' '.join( tokens))
+        statisticalFeatures.append([len(tokens), ])
         tokens = [stemmer.stem(t) for t in tokens]
         stemmed.append(' '.join(tokens))
         if istraining == True:
@@ -97,11 +97,13 @@ tfidfdata = tfidf.fit_transform(stemmed)
 encoder = LabelEncoder()
 y = encoder.fit_transform(classes)
 print(encoder.classes_)
-
+numOfClasses = len(encoder.classes_)
 x_train, x_test, y_train, y_test = train_test_split(tfidfdata, y, test_size=0.1)
 y_test = np_utils.to_categorical(y_test, num_classes=numOfClasses)
 y_train = np_utils.to_categorical(y_train, num_classes=numOfClasses)
 
+#model = createModel(tfidfdata.shape[1])
+#model.fit(x_train, y_train, epochs=30, verbose=2, validation_data=(x_test, y_test))
 model = createModel(tfidfdata.shape[1])
 model.fit(x_train, y_train, epochs=30, verbose=2, validation_data=(x_test, y_test))
 loss, acc = model.evaluate(x_test, y_test, verbose=0)
@@ -110,7 +112,8 @@ print('Training Accuracy: %f' % (acc * 100))
 print('Training F-Score: ', f1(y_test, ypred)*100)
 
 #Labeling unseen data,
-#first creating a new dataset with unseen values
+#first creating a new dataset with unseen values COMMENTED FOR RELATIONS CLASSIFIER
+
 df = pd.read_excel('ClassificationDS.xlsx',sheet_name='Sheet1' ,header=0)
 df2 = pd.DataFrame(columns=['seq','name','content','class'])
 counter = 0
@@ -119,9 +122,13 @@ tfidf = TfidfVectorizer(analyzer='word',  ngram_range=(1,1), max_features=500000
 for i in range(0,len(df.values)):
     seq = str(df.loc[i].values[0])
     personName = str(df.loc[i].values[1])
-    content = str(df.loc[i].values[2])
-    if seq in sequences:
+    personName2 = str(df.loc[i].values[2])
+    samePerson = str(df.loc[i].values[4])
+    if samePerson == 'TRUE':
         continue
+    content = str(df.loc[i].values[5])
+    #if seq in sequences:
+    #   continue
     x = tfidf.fit_transform([content])
     y = model.predict(x)
     #print(y)

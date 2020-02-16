@@ -175,7 +175,15 @@ for i in range(0,len(df)):
     political2 = [t[4] for t in df7 if t[4] != None and t[4] != '' and str(t[0]).strip() == str(seq).strip()]
     predictedClass = '' if len(political2) == 0 else political2[0]
     politicalActivity = str(predictedClass) + ':P' if str(confirmedClass) == '' else str(confirmedClass) + ':C'
-
+    borderColor = ''
+    if politicalActivity == '1:C':
+        borderColor = '#F40000'
+    if politicalActivity == '1:P':
+        borderColor = '#F97373'
+    if politicalActivity == '0:P':
+        borderColor = '#747474'
+    if politicalActivity == '0:C':
+        borderColor = '#FFFFFF'
     # ===================== Relations
     connectionsNamesWithoutArticles = [n[2] for n in df3 if str(n[1]).strip() == name.strip()
                                        and (str(n[6]) == '' or str(n[6]) is None or str(n[6]) == 'nan')
@@ -189,7 +197,8 @@ for i in range(0,len(df)):
         "y": NodeY,
         "color": ClassColor,
         "size": 1+ NodeSize,
-        "label2": name
+        "label2": name,
+        "borderColor": borderColor
     }
     nodes.append(node)
     primaryNodesRelations.append([seq, NodeX, name, connectionsNamesWithoutArticles ])
@@ -250,11 +259,11 @@ edges = []
 for node in nodes:
     seq1 = int(list(node.values())[0])
     name = str(list(node.values())[6])
-    connectionsNamesWithoutArticles = [n[2] for n in df3 if str(n[1]).strip() == name.strip()
+    connectionsNamesWithoutArticles = [(n[2], n[4]) for n in df3 if str(n[1]).strip() == name.strip()
                                        and (str(n[6]) == '' or str(n[6]) is None or str(n[6]) == 'nan')
                                        and n[3] == False]
     #print(seq1, name, connectionsNamesWithoutArticles)
-    seqs2 = [n for n in relationsNodes if str(n[1]).strip() in [str(m).strip() for m in connectionsNamesWithoutArticles]]
+    seqs2 = [n for n in relationsNodes if str(n[1]).strip() in [str(m[0]).strip() for m in connectionsNamesWithoutArticles]]
     #print(seqs2)
     if len(seqs2) != 0:
         for s in seqs2:
@@ -262,6 +271,8 @@ for node in nodes:
                 "id": edgeId,
                 "source": seq1,
                 "size": 3,
+                "label": str([n[1] for n in connectionsNamesWithoutArticles if str(n[0]).strip() == str(s[1]).strip()][0]),
+                #"type": 'curvedArrow',
                 "target": s[0]
             }
             edgeId += 1
@@ -271,11 +282,11 @@ edges2 = []
 for node in nodes:
     seq1 = int(list(node.values())[0])
     name = str(list(node.values())[6])
-    connectionsNamesArticles = [n[2] for n in df3 if str(n[1]).strip() == name.strip()
+    connectionsNamesArticles = [(n[2], n[4]) for n in df3 if str(n[1]).strip() == name.strip()
                                        and (str(n[6]) != '' or str(n[6]) is not None or str(n[6]) != 'nan')
                                        and n[3] == False]
     #print(seq1, name, connectionsNamesArticles)
-    seqs2 = [n for n in namesDict if str(n[1]).strip() in [str(m).strip() for m in connectionsNamesArticles]]
+    seqs2 = [n for n in namesDict if str(n[1]).strip() in [str(m[0]).strip() for m in connectionsNamesArticles]]
     #print(seqs2)
     if len(seqs2) != 0:
         for s in seqs2:
@@ -283,6 +294,8 @@ for node in nodes:
                 "id": edgeId,
                 "source": seq1,
                 "size": 3,
+                "label":  str([n[1] for n in connectionsNamesArticles if str(n[0]).strip() == str(s[1]).strip()][0]),
+                #"type": 'curvedArrow',
                 "target": s[0]
             }
             edgeId += 1
