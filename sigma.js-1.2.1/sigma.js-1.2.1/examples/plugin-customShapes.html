@@ -117,7 +117,7 @@ for (i = 0; i < N; i++) {
   switch(node.type) {
     case "equilateral":
       node.equilateral = {
-        rotate: Math.random()*45, // random rotate up to 45 deg
+        //rotate: Math.random()*45, // random rotate up to 45 deg
         numPoints: Math.round(5 + Math.random()*3)
       }
       break;
@@ -147,6 +147,7 @@ for (i = 0; i < N; i++) {
       }
       break;
   }
+  console.log(node);
   g.nodes.push(node);
 }
 

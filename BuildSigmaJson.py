@@ -14,6 +14,7 @@ df4 = pd.read_excel('ClassificationDS.xlsx',sheet_name='Sheet2' ,header=0).value
 df5 = pd.read_csv('classPredictions.csv',encoding='utf-8',header=0).values.tolist()
 df6 = pd.read_csv('ReligionPredictions.csv',encoding='utf-8',header=0).values.tolist()
 df7 = pd.read_csv('PoliticsPredictions.csv',encoding='utf-8',header=0).values.tolist()
+df8 = pd.read_csv('RelationsPredictions.csv',encoding='utf-8',header=0).values.tolist()
 
 #This is to make the main nodes, that consists of a sequence and a name
 namesDict = []
@@ -119,7 +120,7 @@ for i in range(0,len(df)):
         endPoint = max(lifetime)
     if startingPoint < 1800:
         startingPoint += 580
-    NodeX = int((startingPoint) * 100)
+    NodeX = int(startingPoint)
     NodeY = 0
     if yearsDict.get(NodeX) == None:
         yearsDict[NodeX] = 1
@@ -176,30 +177,68 @@ for i in range(0,len(df)):
     predictedClass = '' if len(political2) == 0 else political2[0]
     politicalActivity = str(predictedClass) + ':P' if str(confirmedClass) == '' else str(confirmedClass) + ':C'
     borderColor = ''
+    politics = 0
+    religion = 0
     if politicalActivity == '1:C':
         borderColor = '#F40000'
+        politics = 1
     if politicalActivity == '1:P':
         borderColor = '#F97373'
+        politics = 1
     if politicalActivity == '0:P':
         borderColor = '#747474'
     if politicalActivity == '0:C':
         borderColor = '#FFFFFF'
+    if religiousActivity == '1:P' or religiousActivity == '1:C':
+        religion = 1
+    type = ''
+    if politics == 0 and religion == 0:
+        type = 'circle'
+    if politics == 1 and religion == 1:
+        type = 'diamond'
+    if politics == 0 and religion == 1:
+        type = 'equilateral'
+    if politics == 1 and religion == 0:
+        type = 'equilateral'
     # ===================== Relations
     connectionsNamesWithoutArticles = [n[2] for n in df3 if str(n[1]).strip() == name.strip()
                                        and (str(n[6]) == '' or str(n[6]) is None or str(n[6]) == 'nan')
                                        and n[3] == False]
     #Node Size
     NodeSize = len( [n[2] for n in df3 if str(n[1]).strip() == name.strip() and n[3] == False])
-    node = {
-        "id" : seq,
-        "label" : name + ' ' + str(startingPoint),
-        "x": NodeX,
-        "y": NodeY,
-        "color": ClassColor,
-        "size": 1+ NodeSize,
-        "label2": name,
-        "borderColor": borderColor
-    }
+    node = {}
+    if type != 'equilateral':
+        node = {
+            "id" : seq,
+            "label" : name + ' ' + str(startingPoint),
+            "x": NodeX,
+            "y": NodeY,
+            "color": ClassColor,
+            "size": 1+ NodeSize,
+            "label2": name,
+            "borderColor": borderColor,
+            "type": type
+        }
+    else:
+        numPoints = 0
+        if politics == 0 and religion == 1:
+            numPoints = 5
+        if politics == 1 and religion == 0:
+            numPoints = 3
+        node = {
+            "id": seq,
+            "label": name + ' ' + str(startingPoint),
+            "x": NodeX,
+            "y": NodeY,
+            "color": ClassColor,
+            "size": 1 + NodeSize,
+            "label2": name,
+            "borderColor": borderColor,
+            "type": type,
+            "equilateral":{
+                "numPoints": numPoints
+            }
+        }
     nodes.append(node)
     primaryNodesRelations.append([seq, NodeX, name, connectionsNamesWithoutArticles ])
 #print(nodes)
@@ -264,7 +303,9 @@ for node in nodes:
                                        and n[3] == False]
     #print(seq1, name, connectionsNamesWithoutArticles)
     seqs2 = [n for n in relationsNodes if str(n[1]).strip() in [str(m[0]).strip() for m in connectionsNamesWithoutArticles]]
+    types = []
     #print(seqs2)
+
     if len(seqs2) != 0:
         for s in seqs2:
             edge = {
@@ -282,16 +323,62 @@ edges2 = []
 for node in nodes:
     seq1 = int(list(node.values())[0])
     name = str(list(node.values())[6])
-    connectionsNamesArticles = [(n[2], n[4]) for n in df3 if str(n[1]).strip() == name.strip()
-                                       and (str(n[6]) != '' or str(n[6]) is not None or str(n[6]) != 'nan')
-                                       and n[3] == False]
+    #1.seq,2.name,3.name2,4.content,5.isconfirmed,6.class
+    connectionsNamesArticles = [(n[3], n[6]) for n in df8 if str(n[2]).strip() == name.strip()
+                                       and (str(n[6]) != '' or str(n[6]) is not None or str(n[6]) != 'nan')]
     #print(seq1, name, connectionsNamesArticles)
     seqs2 = [n for n in namesDict if str(n[1]).strip() in [str(m[0]).strip() for m in connectionsNamesArticles]]
-    #print(seqs2)
+
+    ''' COMPANIONSHIP, COMPETITION, STUDY, SAME PERSON, MISC, HELP, WORK, FAMILY, LIKE, MENTION, WRONG, 
+    'line',
+      'curve', HELP
+      'arrow', STUDY size=2 and WORK size=5
+      'curvedArrow', FAMILY
+      'dashed', WRONG size=1, MISC size = 5
+      'dotted', LIKE
+      'parallel', COMPANIONSHIP size=4, COMPETITION size=1
+      'tapered' LIKE size=2  MENTION size=4
+      '''
     if len(seqs2) != 0:
         for s in seqs2:
+            #seq,name,name2,content,isconfirmed,class
+            type = str([n[1] for n in connectionsNamesArticles if str(n[0]).strip() == str(s[1]).strip()][0])
+            size = 1
+            if type == 'HELP':
+                type = 'curve'
+                size = 1
+            if type == 'STUDY':
+                type = 'arrow'
+                size = 2
+            if type == 'WORK':
+                type = 'arrow'
+                size = 5
+            if type == 'FAMILY':
+                type = 'curvedArrow'
+                size = 10
+            if type == 'WRONG' or type == 'SAME PERSON':
+                continue
+            if type == 'MISC':
+                type = 'dashed'
+                size = 6
+            if type == 'COMPANIONSHIP':
+                type = 'parallel'
+                size = 4
+            if type == 'LIKE':
+                type = 'dotted'
+                size = 3
+            if type == 'COMPETITION':
+                type = 'parallel'
+                size = 1
+
+            if type == 'MENTION':
+                type = 'tapered'
+                size = 4
+            #print(type)
             edge = {
+                "type": type,
                 "id": edgeId,
+                "size" : size,
                 "source": seq1,
                 "size": 3,
                 "label":  str([n[1] for n in connectionsNamesArticles if str(n[0]).strip() == str(s[1]).strip()][0]),
@@ -304,8 +391,48 @@ for node in nodes:
 #print(edges2)
 #print(nodes + nodes2)
 #print(edges + edges2)
+'''YEARS DISTRIBUTION'''
+
+multiplyBy = 1
+radiusDict = {}
+import math
+import copy
+
+for node in nodes:
+    year = list(node.values())[2]
+    radius = int(math.ceil(year / 10.0)) * ((year - 1800) * 3)
+    if radiusDict.get(radius) != None:
+        radiusDict[radius] = radiusDict[radius] + 1
+    else:
+        radiusDict[radius] = 1
+print(radiusDict)
+    #0.id,1.label,2.x,3.y,4.color,5.size,6.label2,7.borderColor
+    #yeasNode = [n for n in nodes if str(list(n.values())[6]) == str(connection)]
+'''RELATIONS DISTRIBUTION PER YEARS'''
+def PointsInCircum(r,n):
+    return [(math.cos(2*math.pi/n*x)*r,math.sin(2*math.pi/n*x)*r) for x in range(0,n+1)]
+points = []
+for radius, count in radiusDict.items():
+    points.append([radius, count, 0, [(int(p[0]), int(p[1])) for p in PointsInCircum(radius, count)]])
+print(points)
+
+nodes3 = []
+for node in nodes:
+    year = list(node.values())[2]
+    radius = int(math.ceil(year / 10.0)) * ((year - 1800) * 3)
+    X = [n[3][n[2]] for n in points if n[0] == radius][0][0]
+    Y = [n[3][n[2]] for n in points if n[0] == radius][0][1]
+    #print(X)
+    nodeCopy = copy.deepcopy(node)
+    nodeCopy['x'] = X
+    nodeCopy['y'] = Y
+    nodes3.append(nodeCopy)
+    for i in range(0, len(points)):
+        if points[i][0] == radius:
+            points[i][2] = points[i][2] + 1
+#This describes mainly
 data = {}
-data['nodes'] = nodes #+ nodes2
+data['nodes'] = nodes3 #+ nodes2
 data['edges'] = edges2 #+ edges
 json_data = json.dumps(data, ensure_ascii=False)
 with open('finalrelations.json', 'w', encoding='utf-8') as my_data_file:
