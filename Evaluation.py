@@ -1,8 +1,8 @@
 import pandas as pd
-from NameFunctions import compareNames, findMostSimilar, normalize, normalize2, unique, fixArabicNames, combineRelations, getRelation, getFiveBefore, getFiveAfter
+from NameFunctions import compareNames,getNameFrequencies, findMostSimilar, normalize, normalize2, unique, fixArabicNames, combineRelations, getRelation, getFiveBefore, getFiveAfter
 
 testCases = pd.read_csv('testcases.csv',encoding='cp1256', header=0).values.tolist()
-resultsDataset = pd.read_csv('resultdataset.csv',encoding='cp1256', header=0).values.tolist()
+resultsDataset = pd.read_csv('resultsdataset.csv',encoding='utf-8', header=0).values.tolist()
 counts = {}
 testCounts = {}
 for result in resultsDataset:
@@ -18,6 +18,10 @@ for result in testCases:
 print('Number of retrieved names: ', counts)
 print('Numbers in test cases: ', testCounts)
 
+df = pd.read_csv('OmarAlTalebSheet.csv',encoding='utf-8',header=0)
+
+NameFrequencies = getNameFrequencies(df)
+print('NameFrequencies',len(NameFrequencies))
 '''Check cases counts'''
 LinksRecall = []
 SamePersonRecall = []
@@ -31,7 +35,8 @@ for result in testCases:
     ArticleName = result[0]
     if ArticleName != PreviousArticle:
         print(f'Testing {ArticleName}...')
-        AvailableCases = [n for n in resultsDataset if n[0].strip() == ArticleName.strip()]
+        AvailableCases = [n for n in resultsDataset if n[1].strip() == ArticleName.strip()]
+        #print('AvailableCases',AvailableCases)
         print(f'Found {len(AvailableCases)}')
         OriginalCases = [n[5] for n in testCases if n[0].strip() == ArticleName.strip()]
         print(f'Original cNameFrequenciesases {len(OriginalCases)}')
@@ -40,7 +45,7 @@ for result in testCases:
         OriginalLinkCases = [n[5] for n in testCases if n[0].strip() == ArticleName.strip()  and n[5] is not None]
         AvailableLinkCases = [n[5] for n in testCases if n[0].strip() == ArticleName.strip()
                               and n[5] is not None
-                              and n[5] in [m[5] for m in AvailableCases if m[5] is not None]]
+                              and n[5] in [m[6] for m in AvailableCases if m[6] is not None]]
         if len(OriginalLinkCases) != 0:
             Recall = round(len(AvailableLinkCases) / len(OriginalLinkCases), 2) * 100
             LinksRecall.append(Recall)

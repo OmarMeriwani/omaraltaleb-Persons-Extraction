@@ -103,7 +103,7 @@ NamesDataset = unique(NamesDataset)
 print(len(NameTokens))
 resultsDataset = []
 testCases = pd.read_csv('testcases.csv',encoding='cp1256', header=0).values.tolist()
-istest = False
+istest = True
 
 personscount = len(df.values)
 if istest == True:
@@ -258,7 +258,7 @@ for i in range(0,personscount):
 
         counter += 1
     AlWords = []
-resultsDataset = pd.DataFrame(resultsDataset).to_csv('resultsdataset.csv')
+#resultsDataset = pd.DataFrame(resultsDataset).to_csv('resultsdataset.csv')
 '''for w in contentTokens:
     if w[:2] == 'ال' or w[:3] ==  'وال' and len(w) > 5:
         AlWords.append(w)

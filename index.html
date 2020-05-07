@@ -4,78 +4,179 @@
     <title>SigmaJS example</title>
       <style>
       body {height: 100%; margin:0;}
-      #sigma-container { width:100%; height:100%; background-color:#E1E1E1}
+      #sigma-container { width:100%; height:100%; background-color:#E1E1E1;}
       </style>
     <!-- Sigma core -->
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/sigma.core.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/conrad.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/utils/sigma.utils.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/utils/sigma.polyfills.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/sigma.settings.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.dispatcher.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.configurable.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.graph.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.camera.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.quad.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.edgequad.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/captors/sigma.captors.mouse.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/captors/sigma.captors.touch.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/sigma.renderers.canvas.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/sigma.renderers.webgl.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/sigma.renderers.svg.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/sigma.renderers.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.labels.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.utils.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.nodes.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.edges.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.edges.curve.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.labels.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.hovers.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/middlewares/sigma.middlewares.rescale.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/middlewares/sigma.middlewares.copy.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/misc/sigma.misc.animation.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/misc/sigma.misc.bindEvents.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/misc/sigma.misc.bindDOMEvents.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/src/misc/sigma.misc.drawHovers.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/sigma.core.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/conrad.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/utils/sigma.utils.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/utils/sigma.polyfills.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/sigma.settings.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.dispatcher.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.configurable.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.graph.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.camera.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.quad.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/classes/sigma.classes.edgequad.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/captors/sigma.captors.mouse.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/captors/sigma.captors.touch.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/sigma.renderers.canvas.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/sigma.renderers.webgl.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/sigma.renderers.svg.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/sigma.renderers.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.nodes.fast.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.fast.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/webgl/sigma.webgl.edges.arrow.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.labels.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.hovers.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.nodes.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curve.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.arrow.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edges.curvedArrow.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curve.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.arrow.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.edgehovers.curvedArrow.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/canvas/sigma.canvas.extremities.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.utils.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.nodes.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.edges.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.edges.curve.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.labels.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/renderers/svg/sigma.svg.hovers.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/middlewares/sigma.middlewares.rescale.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/middlewares/sigma.middlewares.copy.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/misc/sigma.misc.animation.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/misc/sigma.misc.bindEvents.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/misc/sigma.misc.bindDOMEvents.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/src/misc/sigma.misc.drawHovers.js"></script>
     <!-- END SIGMA IMPORTS -->
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edges.dashed.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edges.dotted.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edges.parallel.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edges.tapered.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edgehovers.dashed.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edgehovers.dotted.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edgehovers.parallel.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edgehovers.tapered.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/settings.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customShapes/shape-library.js"></script>
-    <script src="../omaraltaleb Persons Extraction/sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customShapes/sigma.renderers.customShapes.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edges.dashed.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edges.dotted.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edges.parallel.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edges.tapered.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edgehovers.dashed.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edgehovers.dotted.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edgehovers.parallel.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customEdgeShapes/sigma.canvas.edgehovers.tapered.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/settings.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customShapes/shape-library.js"></script>
+    <script src="sigma.js-1.2.1/sigma.js-1.2.1/plugins/sigma.renderers.customShapes/sigma.renderers.customShapes.js"></script>
 
     
         <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-
+        <style>
+          body {
+            color: #333;
+            font-size: 14px;
+            font-family: Lato, sans-serif;
+          }
+          #graph-container {
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            position: absolute;
+          }
+          #control-pane {
+            top: 10px;
+            /*bottom: 10px;*/
+            right: 10px;
+            position: absolute;
+            width: 250px;
+            background-color: rgb(249, 247, 237);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          }
+          #control-pane > div {
+            margin: 10px;
+            overflow-x: auto;
+          }
+          .line {
+            clear: both;
+            display: block;
+            width: 100%;
+            margin: 0;
+            padding: 12px 0 0 0;
+            border-bottom: 1px solid #aac789;
+            background: transparent;
+          }
+          h2, h3, h4 {
+            padding: 0;
+            font-variant: small-caps;
+          }
+          .green {
+            color: #437356;
+          }
+          h2.underline {
+            color: #437356;
+            background: #f4f0e4;
+            margin: 0;
+            border-radius: 2px;
+            padding: 8px 12px;
+            font-weight: 700;
+          }
+          .hidden {
+            display: none;
+            visibility: hidden;
+          }
+      
+          input[type=range] {
+            width: 140px;
+          }
+        </style>
   </head>
   <body>
 
-    <div oncontextmenu="rightClickk()" id='sigma-container'></div>
+
+
+
+    <div id="container">
+
+      <div oncontextmenu="rightClickk()" id='sigma-container'></div>
+
+
+      <div id="control-pane">
+        <h2 class="underline">filters</h2>
+        
+        <div>
+          <h3>Starting from <span id="min-degree-val">1793</span></h3>
+          From<br/> <input id="textFrom" value="" onchange="filterr()"/>
+          <br/> To <br/><input id="textTo" value="" onchange="filterr()"/>
+          <br />
+          Religion and Politics Check <input type="checkbox" id="politicsAndReligionCheckbox" onchange="filterr()" />
+          <br />
+          Politics <input type="checkbox" id="politicsCheckbox" onchange="filterr()" />
+          <br />
+          Religion <input type="checkbox" id="religionsCheckbox" onchange="filterr()" />
+        </div>
+        <div>
+          <h3>node category</h3>
+          <select onchange="filterr(document.getElementById('textFrom').value,document.getElementById('textTo').value,this,null,null,null)" id="node-category">
+            <option value=""  selected>All..</option>
+            <option value="#4b5320" style="color:#868686" >Army</option>
+            <option value="#5e5f56" style="color:#5e5f56" >Religion</option>
+            <option value="#deb22e" style="color:#deb22e" >Journalism</option>
+            <option value="#3400ff" style="color:#3400ff" >Government</option>
+            <option value="#08001f" style="color:#08001f" >Jurisdiction</option>
+            <option value="#a9d9e1" style="color:#a9d9e1" >Health</option>
+            <option value="#0095ff" style="color:#0095ff" >Education</option>
+            <option value="#ff0000" style="color:#ff0000" >Art</option>
+            <option value="#ffc800" style="color:#ffc800" >Literature</option>
+            <option value="#e200ff" style="color:#e200ff" >Sport</option>
+            <option value="#137aa2" style="color:#137aa2" >Business</option>
+          </select>
+        </div>
+        <span class="line"></span>
+        <div id="dump" class="hidden"></div>
+      </div>
+    </div>
+
     <script>
       function readTextFile(file, callback) {
         var rawFile = new XMLHttpRequest();
@@ -100,7 +201,7 @@ function containsObject(obj, list)
 {
   var i;
   for (i = 0; i < list.length; i++) {
-    if (list[i] === obj) {
+    if (list[i] == obj) {
         return true;
     }
   }
@@ -147,6 +248,7 @@ function refresh_graph() {
   $('#sigma-container').html('<div id="sigma-container"></div>'); 
 
 }
+
 
 //var graph = {}
 readTextFile("http://127.0.0.1:8887/finalrelations.json", function(text){
@@ -237,13 +339,101 @@ function(e)
   myJson = {nodes: {}, edges: {}};
   myJson.nodes = graph2;
   myJson.edges = allEdges;
-  console.log(myJson);
+  //console.log(myJson);
   s.graph.clear();
   s.refresh();
   //JSON.parse(graph).filter(d => d.data.node.id == nodeId);
   s.graph.read(myJson);  
   s.refresh();
 });
+function valid(id)
+{
+    var textVal=document.getElementById(id).value;
+    if (!textVal.match(/\S/)) 
+    {
+        alert("Field is blank");
+        return false;
+    } 
+    else 
+    {
+        return true;
+    }
+ }
+
+function filterr ()
+{
+  //politicsAndReligionCheckbox
+  var yearFrom = $("#textFrom").val();
+  var    yearTo =  $("#textTo").val(); 
+  var    occupation = $("#node-category").val();
+  var    religionAndpolitics=$("#politicsAndReligionCheckbox").is(":checked"); 
+  var    religion=$("#religionsCheckbox").is(":checked"); 
+  var    politics=$("#politicsCheckbox").is(":checked"); 
+  var    relations =  $("#textTo");
+  //if (occupation == ''  && yearFrom == '' && yearTo =='' ){
+   // console.log('EMPTY');
+  //  rightClickk();
+  //  return;
+  //}
+
+  //console.log('POLITICS CHECK', x, occupation == '', yearFrom == '', yearTo == '' );
+  var graph2 = [];
+  var counter = 0;
+  var edges = [];
+  var allEdges = [];
+  var nodes = []
+
+  var nodesSet = [];
+
+
+  for (var key of Object.keys(graph.nodes)) {
+   // if (occupation != '' && occupation != null){
+    //  if (occupation == graph.nodes[key].color )
+    //  {
+    //    graph2.push(graph.nodes[key]);
+    //    nodesSet.push(graph.nodes[key].id);
+    //  }
+    //}
+   // if (yearFrom != '' && yearTo !=''){
+      
+      if ((parseInt(yearFrom) <= parseInt(graph.nodes[key].year) || yearFrom == '') && 
+      ( parseInt(yearTo) >=  parseInt(graph.nodes[key].year) || yearTo =='') &&
+       (occupation == graph.nodes[key].color || occupation == '') )
+      {
+        if (religionAndpolitics){
+          if ((religion) == (graph.nodes[key].religion) && (politics) == (graph.nodes[key].politics)){
+            graph2.push(graph.nodes[key]);
+          }
+        }
+        else{
+          graph2.push(graph.nodes[key]);
+        }
+      }
+    
+  }
+  var nodeEdges = [];
+  for (var i =0 ; i < graph2.length; i++){
+    nodeId = graph2[i].id;
+    nodeEdges.push(nodeId);
+  }
+  //console.log(nodeEdges);
+  for (var key of Object.keys(graph.edges)) {
+      if (containsObject( graph.edges[key].source, nodeEdges) == true && containsObject( graph.edges[key].target, nodeEdges) == true){
+        //console.log(true);
+        allEdges.push(graph.edges[key]);
+      }
+    }
+  
+  
+  myJson = {nodes: {}, edges: {}};
+  myJson.nodes = graph2;
+  myJson.edges = allEdges;
+  //console.log(myJson);
+  s.graph.clear();
+  s.refresh();
+  s.graph.read(myJson);  
+  s.refresh();
+}
 
 
   </script>

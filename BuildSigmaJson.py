@@ -78,6 +78,7 @@ edges = []
 primaryNodesRelations = []
 yearsDict = {}
 yCounter = 20
+tableData = []
 for i in range(0,len(df)):
     events = [ int(n) for n in  re.findall(r'\d+', str(df.loc[i][6])) if int(n) > 1800 and int(n) < 2020]
     events.sort()
@@ -126,8 +127,6 @@ for i in range(0,len(df)):
         yearsDict[NodeX] = 1
         yCounter = 20 #20 is like zero
         NodeY = yCounter
-
-
     else:
         yearsDict[NodeX] = yearsDict[NodeX] + 1
         yCounter += 5
@@ -206,6 +205,7 @@ for i in range(0,len(df)):
                                        and n[3] == False]
     #Node Size
     NodeSize = len( [n[2] for n in df3 if str(n[1]).strip() == name.strip() and n[3] == False])
+    tableData.append([seq, name, NodeSize,class1, religion, politics, startingPoint])
     node = {}
     if type != 'equilateral':
         node = {
@@ -216,6 +216,9 @@ for i in range(0,len(df)):
             "color": ClassColor,
             "size": 1+ NodeSize,
             "label2": name,
+            "religion": religion,
+            "politics": politics,
+            "year": startingPoint,
             "borderColor": borderColor,
             "type": type
         }
@@ -233,6 +236,9 @@ for i in range(0,len(df)):
             "color": ClassColor,
             "size": 1 + NodeSize,
             "label2": name,
+            "religion": religion,
+            "politics": politics,
+            "year": startingPoint,
             "borderColor": borderColor,
             "type": type,
             "equilateral":{
@@ -241,6 +247,8 @@ for i in range(0,len(df)):
         }
     nodes.append(node)
     primaryNodesRelations.append([seq, NodeX, name, connectionsNamesWithoutArticles ])
+df9 = pd.DataFrame(columns=['seq','name','relations','occupation','religion','politics','startingyear'],data=tableData)
+df9.to_csv('finaltable.csv')
 #print(nodes)
 yearsDict = {}
 xDict = {}
@@ -400,7 +408,7 @@ import copy
 
 for node in nodes:
     year = list(node.values())[2]
-    radius = int(math.ceil(year / 10.0)) * ((year - 1800) * 3)
+    radius = int(math.ceil(year / 10.0)) * ((year - 1800))
     if radiusDict.get(radius) != None:
         radiusDict[radius] = radiusDict[radius] + 1
     else:
@@ -419,7 +427,7 @@ print(points)
 nodes3 = []
 for node in nodes:
     year = list(node.values())[2]
-    radius = int(math.ceil(year / 10.0)) * ((year - 1800) * 3)
+    radius = int(math.ceil(year / 10.0)) * ((year - 1800))
     X = [n[3][n[2]] for n in points if n[0] == radius][0][0]
     Y = [n[3][n[2]] for n in points if n[0] == radius][0][1]
     #print(X)

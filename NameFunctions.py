@@ -48,7 +48,7 @@ def compareNames(name1, name2, index, NameFrequencies):
         frequency = [n[1] for n in NameFrequencies if n[0] == first1]
         if len(frequency) != 0:
             if frequency[0] <= 6:
-                score += 1 / 10 - frequency[0]
+                score += 1 / 4 + frequency[0]
         if lastsEqual:
             score += 0.25
             #print('NAME1', name1, 'NAME2', name2)
